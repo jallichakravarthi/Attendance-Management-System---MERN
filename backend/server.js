@@ -60,7 +60,7 @@ app.use((req, res) => {
 // Socket.IO setup
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: process.env.FRONTEND_PATH,
     methods: ["GET", "POST", "PUT", "DELETE"],
   },
 });
