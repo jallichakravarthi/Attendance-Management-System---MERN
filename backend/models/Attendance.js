@@ -1,17 +1,38 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-const attendanceSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  date: { type: Date, required: true },
-  status: { type: String, enum: ["present", "absent", "on-leave"], default: "absent" },
-  leaveType: {
-    type: String,
-    enum: ["sick", "paid", "unpaid", null],
-    default: null
+const AttendanceSchema = new mongoose.Schema(
+  {
+    email: { type: String }, // legacy only, optional
+
+    regNo: {
+      type: String,
+      required: true,
+      uppercase: true,
+      trim: true,
+      index: true,
+    },
+
+    date: {
+      type: String,
+      required: true,
+    },
+
+    time: {
+      type: String,
+      required: true,
+    },
+
+    status: {
+      type: String,
+      enum: ["present", "late", "absent"],
+      required: true,
+    },
   },
-  method: { type: String, enum: ["face-recognition", "manual"], default: "face-recognition" }
-}, { timestamps: true });
+  {
+    timestamps: true,
+    collection: "attendance",
+  }
+);
 
-attendanceSchema.index({ user: 1, date: 1 }, { unique: true });
 
-export default mongoose.model("Attendance", attendanceSchema);
+module.exports = mongoose.model("Attendance", AttendanceSchema);
