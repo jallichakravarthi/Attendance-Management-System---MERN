@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5051/api/auth';
+const API_BASE = 'https://attendance-management-system-mern.onrender.com/api/auth';
 const FACE_REGISTER_URL = 'http://localhost:5050/register';
 
 export interface User {
